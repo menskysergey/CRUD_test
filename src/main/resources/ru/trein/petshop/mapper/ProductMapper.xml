@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.trein.petshop.mapper.ProductMapper">
+
+    <resultMap id="Product" type="ru.trein.petshop.model.Product">
+        <result property="article" column="article" jdbcType="SMALLINT"/>
+        <result property="manufacturer" column="manufacturer" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="NUMERIC"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="selectAllProduct" resultMap="Product">
+        SELECT * FROM products
+    </select>
+
+    <insert id="insertProduct" parameterType="ru.trein.petshop.model.Product">
+        INSERT INTO products
+        (article, manufacturer, name, weight, price)
+        VALUES
+        (#{article}, #{manufacturer}, #{name}, #{weight}, #{price})
+    </insert>
+
+    <update id="updateProduct" parameterType="ru.trein.petshop.model.Product">
+        UPDATE products set
+        article = #{article},
+        manufacturer = #{manufacturer},
+        name = #{name},
+        weight = #{weight},
+        price = #{price}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProduct" parameterType="java.lang.Integer">
+        DELETE FROM products WHERE id = #{id}
+    </delete>
+
+</mapper>
